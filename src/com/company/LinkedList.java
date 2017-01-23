@@ -7,7 +7,6 @@ public class LinkedList {
            return node;
        }
        Node reversedList = recursiveReverse(node.next);
-       //System.out.print(node.getData());
        //The last node points back to the previous node in the stack
        node.next.next = node;
        //Nullifies the forward pointers in the stack
@@ -21,9 +20,15 @@ public class LinkedList {
         Node curr = head;
 
         while(curr != null){
+            //Temp pointer to the next node
+            //Necessary because currents link to the next node will be altered
             nextNode = curr.next;
+            //Breaks forward link and redirects to point to the previous node
             curr.next = prev;
+            //Previous points to the next node in the linked list
             prev = curr;
+            //Current points to the nextNode
+            //Equivalent to curr = curr.next, but since curr.next was altered we use nextNode
             curr = nextNode;
         }
         return prev;
@@ -62,7 +67,7 @@ public class LinkedList {
             currentObj.next = temp;
             return temp;
         }
-        
+
 
         public void printList(){
             Node list = this;
@@ -86,13 +91,9 @@ public class LinkedList {
 	list.append(3);
 	list.append(4);
 	list.append(5);
+	list.printList();
+	System.out.println();
 	Node reversedList = reverse(list);
 	reversedList.printList();
-//	System.out.println();
-//	list.printList();
-//	Node recursiveReversedList = recursiveReverse(list);
-//	System.out.println();
-//	recursiveReversedList.printList();
-//	System.out.println();
     }
 }
