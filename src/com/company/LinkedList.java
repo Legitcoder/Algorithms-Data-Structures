@@ -58,31 +58,57 @@ public class LinkedList {
             return previous;
         }
 
-        public Node insert(int data, int position){
+        public Node insert( int data, int position){
             Node newNode = new Node(data);
             Node currentObject = this;
             if(position > currentObject.length() || position <= 0){
                 System.out.println("Invalid position");
                 return currentObject;
             }
+            //Edge case isn't working for some reason
             if(position == 1){
                 newNode.next = currentObject;
                 return newNode;
             }
-            int count = 1;
-            Node previous = null;
+            else {
+                int count = 1;
+                Node previous = null;
+
+                while (currentObject != null) {
+                    if (count == position) {
+                        previous.next = newNode;
+                        newNode.next = currentObject;
+                    }
+                    previous = currentObject;
+                    currentObject = currentObject.next;
+                    count++;
+                }
+                return previous;
+            }
+
+        }
+
+        public Node delete(int data){
+            Node currentObject = this;
+            Node previous = new Node(currentObject.data);
+            currentObject = currentObject.next;
+
+            if(currentObject.length() == 1 && currentObject.data == data){
+                return null;
+            }
+            //Edge case isn't working for some reason
+            if(previous.data == data){
+                return currentObject;
+            }
 
             while(currentObject != null){
-                if(count == position){
-                    previous.next = newNode;
-                    newNode.next = currentObject;
+                if(currentObject.data == data){
+                    previous.next = currentObject.next;
                 }
                 previous = currentObject;
                 currentObject = currentObject.next;
-                count++;
             }
-            return currentObject;
-
+            return previous;
         }
 
         public int length(){
@@ -128,11 +154,13 @@ public class LinkedList {
 	list.append(3);
 	list.append(4);
 	list.append(5);
-	list = list.insert(9999, 1);
+	list.insert(9999, 3);
+	list.delete(9999);
+	//list = list.delete(9999);
 	//System.out.println(list.length());
 	list.printList();
 	System.out.println();
-	//Node reversedList = reverse(list);
-	//reversedList.printList();
+//	Node reversedList = reverse(list);
+//	reversedList.printList();
     }
 }
