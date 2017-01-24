@@ -58,6 +58,43 @@ public class LinkedList {
             return previous;
         }
 
+        public Node insert(int data, int position){
+            Node newNode = new Node(data);
+            Node currentObject = this;
+            if(position > currentObject.length() || position <= 0){
+                System.out.println("Invalid position");
+                return currentObject;
+            }
+            if(position == 1){
+                newNode.next = currentObject;
+                return newNode;
+            }
+            int count = 1;
+            Node previous = null;
+
+            while(currentObject != null){
+                if(count == position){
+                    previous.next = newNode;
+                    newNode.next = currentObject;
+                }
+                previous = currentObject;
+                currentObject = currentObject.next;
+                count++;
+            }
+            return currentObject;
+
+        }
+
+        public int length(){
+            int count = 0;
+            Node list = this;
+            while(list != null){
+                list = list.next;
+                count++;
+            }
+            return count;
+        }
+
         public Node append(int data){
             Node temp = new Node(data);
             Node currentObj = this;
@@ -91,9 +128,11 @@ public class LinkedList {
 	list.append(3);
 	list.append(4);
 	list.append(5);
+	list = list.insert(9999, 1);
+	//System.out.println(list.length());
 	list.printList();
 	System.out.println();
-	Node reversedList = reverse(list);
-	reversedList.printList();
+	//Node reversedList = reverse(list);
+	//reversedList.printList();
     }
 }
