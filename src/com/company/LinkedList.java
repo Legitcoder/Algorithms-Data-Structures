@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.*;
+
 public class LinkedList {
 
     public static Node recursiveReverse(Node node){
@@ -14,6 +16,51 @@ public class LinkedList {
        return reversedList;
     }
 
+
+    //Given an unsorted linked list, remove the duplicates
+    public static Node remove_duplicates(Node head){
+        if(head == null || head.next == null){
+            return null;
+        }
+
+        HashSet<Integer> nodes = new HashSet<Integer>();
+
+        Node previous = null;
+
+        while(head != null){
+            if(nodes.contains(head.data)){
+                //skip the node that contains the duplicate
+                previous.next = head.next;
+            }
+            else{
+                nodes.add(head.data);
+                previous = head;
+            }
+            head = head.next;
+        }
+
+        return previous;
+    }
+
+
+    //Given an sorted linked list, remove the duplicates
+    public static Node remove_sorted_duplicates(Node head){
+        if(head.next == null || head == null) return null;
+
+        Node prev = head;
+        head = head.next;
+
+
+        while(head !=  null){
+            if(prev.data == head.data){
+                prev.next = head.next;
+            }
+            prev = head;
+            head = head.next;
+        }
+        return prev;
+    }
+
     public static Node reverse(Node head){
         Node nextNode = null;
         Node prev = null;
@@ -21,7 +68,7 @@ public class LinkedList {
 
         while(curr != null){
             //Temp pointer to the next node
-            //Necessary because currents link to the next node will be altered
+            //Necessary because current link to the next node will be altered
             nextNode = curr.next;
             //Breaks forward link and redirects to point to the previous node
             curr.next = prev;
@@ -141,6 +188,7 @@ public class LinkedList {
                 }
                 list = list.next;
             }
+            System.out.println();
         }
 
         public int getData(){
@@ -149,6 +197,7 @@ public class LinkedList {
     }
 
     public static void main(String[] args) {
+        //Driver Code
 	Node list = new Node(1);
 	list.append(2);
 	list.append(3);
@@ -156,10 +205,23 @@ public class LinkedList {
 	list.append(5);
 	list.insert(9999, 3);
 	list.delete(9999);
-	//list = list.delete(9999);
-	//System.out.println(list.length());
+	list.append(5);
+	list.append(1);
+	list.append(1);
+	list.append(3);
+	remove_duplicates(list);
 	list.printList();
-	System.out.println();
+	Node sortedList = new Node(2);
+    sortedList.append(2);
+	sortedList.append(3);
+	sortedList.append(3);
+	sortedList.append(4);
+	sortedList.append(4);
+	sortedList.append(5);
+	sortedList.append(5);
+	//remove_duplicates(sortedList);
+	remove_sorted_duplicates(sortedList);
+	sortedList.printList();
 //	Node reversedList = reverse(list);
 //	reversedList.printList();
     }
