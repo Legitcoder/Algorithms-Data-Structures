@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.*;
-import java.util.concurrent.RecursiveAction;
 
 public class LinkedList {
 
@@ -134,7 +133,42 @@ public class LinkedList {
             //Equivalent to curr = curr.next, but since curr.next was altered we use nextNode
             curr = nextNode;
         }
+        //prev is now the new head
         return prev;
+    }
+
+    public static Node addLists(Node a, Node b){
+        int sum = getStackSum(a) + getStackSum(b);
+        Node addedList = intToList(sum);
+        return addedList;
+    }
+
+    public static Node intToList(int num){
+        char[] numChars = (Integer.toString(num)).toCharArray();
+        Node list = new Node(Character.getNumericValue(numChars[numChars.length-1]));
+        Node head = list;
+        //System.out.println(numChars[numChars.length-1]);
+       // System.out.println(list.data);
+        for(int i = numChars.length-2; i >=0; i--){
+            list.next = new Node(Character.getNumericValue(numChars[i]));
+            list = list.next;
+        }
+        return head;
+    }
+
+    public static int getStackSum(Node head){
+        String numString = "";
+        Stack<String> nodes = new Stack<>();
+        while(head != null){
+            nodes.push(Integer.toString(head.data));
+            head = head.next;
+        }
+        while(!nodes.empty()){
+            numString += nodes.pop();
+        }
+        int num = Integer.parseInt(numString);
+        return num;
+
     }
 
 //    public static boolean isPalindrome(Node head){
@@ -356,8 +390,16 @@ public class LinkedList {
 	palindromeList.append(2);
 	palindromeList.append(1);
 	//palindromeList.printList();
-	boolean checkPalindrome = isPalindrome(palindromeList);
-	System.out.println(checkPalindrome);
+	boolean checkPalindrome = isPalindrome(list);
+	//System.out.println(checkPalindrome);
+	Node listOne = new Node(7);
+	listOne.append(1);
+	listOne.append(6);
+	Node listTwo = new Node(5);
+	listTwo.append(9);
+	listTwo.append(2);
+	Node addedMergedList = addLists(listOne, listTwo);
+	addedMergedList.printList();
 
 
 	//remove_duplicates(sortedList);
@@ -370,7 +412,7 @@ public class LinkedList {
 //	list.printList();
 	//Node partitionedList = partition(list, 7);
 	//partitionedList.printList();
-        Node reversedList = reverse(list);
-     reversedList.printList();
+      //  Node reversedList = reverse(list);
+    // reversedList.printList();
     }
 }
