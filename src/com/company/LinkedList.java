@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.*;
+import java.util.concurrent.RecursiveAction;
 
 public class LinkedList {
 
@@ -84,6 +85,7 @@ public class LinkedList {
         return head.data;
     }
 
+
     //Cracking the Coding Interview Solution
     public static int printKthToLast(Node head, int k){
         if(head == null){
@@ -133,6 +135,43 @@ public class LinkedList {
             curr = nextNode;
         }
         return prev;
+    }
+
+//    public static boolean isPalindrome(Node head){
+//        Node headPtr = head;
+//        Node reversedList = reverse(head);
+//        head.printList();
+//        reversedList.printList();
+//        while(head!= null && reversedList !=null){
+//            if(head.data != reversedList.data){
+//                //System.out.println(head.data);
+//                //System.out.println(reversedList.data);
+//                break;
+//            }
+//            head = head.next;
+//            reversedList = reversedList.next;
+//        }
+//        if(head == null && reversedList == null){
+//            return true;
+//        }
+//        return false;
+//    }
+
+    public static boolean isPalindrome(Node head){
+        Node headPtr = head;
+        Stack<Integer> nodes = new Stack<>();
+        while(head != null){
+            nodes.push(head.data);
+            head = head.next;
+        }
+        while(headPtr != null){
+            if(headPtr.data != nodes.peek()){
+                return false;
+            }
+            headPtr = headPtr.next;
+            nodes.pop();
+        }
+        return true;
     }
 
 
@@ -306,6 +345,21 @@ public class LinkedList {
 	sortedList.append(4);
 	sortedList.append(5);
 	sortedList.append(5);
+	Node palindromeList = new Node(1);
+	palindromeList.append(2);
+	palindromeList.append(3);
+	palindromeList.append(4);
+	palindromeList.append(5);
+	palindromeList.append(5);
+	palindromeList.append(4);
+	palindromeList.append(3);
+	palindromeList.append(2);
+	palindromeList.append(1);
+	//palindromeList.printList();
+	boolean checkPalindrome = isPalindrome(palindromeList);
+	System.out.println(checkPalindrome);
+
+
 	//remove_duplicates(sortedList);
 //	remove_sorted_duplicates(sortedList);
 //	sortedList.printList();
@@ -314,9 +368,9 @@ public class LinkedList {
 //	int thirdToLast = printKthToLast(list, 2);
 //	list.deleteMiddleNode();
 //	list.printList();
-	Node partitionedList = partition(list, 7);
-	partitionedList.printList();
-        //	Node reversedList = reverse(list);
-//	reversedList.printList();
+	//Node partitionedList = partition(list, 7);
+	//partitionedList.printList();
+        Node reversedList = reverse(list);
+     reversedList.printList();
     }
 }
