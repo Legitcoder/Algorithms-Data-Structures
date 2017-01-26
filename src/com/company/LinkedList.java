@@ -42,6 +42,36 @@ public class LinkedList {
         return previous;
     }
 
+    public static Node partition(Node head, int n){
+        HashSet<Integer> leftNodes = new HashSet<Integer>();
+        HashSet<Integer> rightNodes = new HashSet<Integer>();
+        Node secondPtr = head;
+        Node thirdPtr = head;
+
+        while(head != null){
+            if(head.data < n){
+               leftNodes.add(head.data);
+            }
+            else{
+                rightNodes.add(head.data);
+            }
+            head = head.next;
+        }
+
+        for(int i : leftNodes){
+            secondPtr.data = i;
+            secondPtr = secondPtr.next;
+        }
+
+        for(int i : rightNodes){
+            secondPtr.data = i;
+            secondPtr = secondPtr.next;
+        }
+
+        return thirdPtr;
+
+        }
+
     //Find the kth to the last element in a singly linked list
     public static int getKthfromLastNode(Node head, int k){
         if(head == null){
@@ -256,24 +286,26 @@ public class LinkedList {
         //Driver Code
 	Node list = new Node(1);
 	list.append(2);
+	list.append(1);
+	list.append(9000);
 	list.append(3);
 	list.append(4);
 	list.append(5);
 	list.insert(9999, 3);
 	list.delete(9999);
 	list.append(5);
-	list.append(1);
+	list.append(7);
 	list.append(1);
 	list.append(3);
 	list.append(6);
-	list.append(7);
+	list.append(6);
 	list.append(8);
 	list.append(9);
 	list.append(10);
 	list.append(11);
 	list.append(12);
-	remove_duplicates(list);
-	list.printList();
+//	remove_duplicates(list);
+//	list.printList();
 	Node sortedList = new Node(2);
     sortedList.append(2);
 	sortedList.append(3);
@@ -283,13 +315,15 @@ public class LinkedList {
 	sortedList.append(5);
 	sortedList.append(5);
 	//remove_duplicates(sortedList);
-	remove_sorted_duplicates(sortedList);
-	sortedList.printList();
-	int secondToLast = getKthfromLastNode(list, 2);
-	System.out.println(secondToLast);
-	int thirdToLast = printKthToLast(list, 2);
-	list.deleteMiddleNode();
-	list.printList();
+//	remove_sorted_duplicates(sortedList);
+//	sortedList.printList();
+//	int secondToLast = getKthfromLastNode(list, 2);
+//	System.out.println(secondToLast);
+//	int thirdToLast = printKthToLast(list, 2);
+//	list.deleteMiddleNode();
+//	list.printList();
+	Node partitionedList = partition(list, 7);
+	partitionedList.printList();
         //	Node reversedList = reverse(list);
 //	reversedList.printList();
     }
