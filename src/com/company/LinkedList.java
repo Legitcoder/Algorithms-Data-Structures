@@ -42,6 +42,38 @@ public class LinkedList {
         return previous;
     }
 
+    //Find the kth to the last element in a singly linked list
+    public static int getKthfromLastNode(Node head, int k){
+        if(head == null){
+            return -1;
+        }
+        int length = head.length();
+
+        if(k > length || k < 0 ){
+            System.out.println("Out of Range");
+            return -1;
+        }
+
+        int position = length - k;
+        while(position > 0){
+            head = head.next;
+            position--;
+        }
+        return head.data;
+    }
+
+    //Cracking the Coding Interview Solution
+    public static int printKthToLast(Node head, int k){
+        if(head == null){
+            return 0;
+        }
+        int index = printKthToLast(head.next, k) +1;
+        if(index == k){
+            System.out.println(k + "th to last node is " + head.data);
+        }
+        return index;
+    }
+
 
     //Given an sorted linked list, remove the duplicates
     public static Node remove_sorted_duplicates(Node head){
@@ -103,6 +135,30 @@ public class LinkedList {
             }
             previous.next = null;
             return previous;
+        }
+
+        public void deleteMiddleNode(){
+            Node head = this;
+            int length = (head.length()/2);
+            if(head.length() % 2 == 0){
+                length--;
+            }
+            System.out.println(length);
+            Node prev = head;
+            head = head.next;
+            length--;
+            System.out.println(length);
+
+            while(prev != null){
+                if(length == 0){
+                    prev.next = head.next;
+                    break;
+                }
+                prev = prev.next;
+                head = head.next;
+                length--;
+            }
+
         }
 
         public Node insert( int data, int position){
@@ -209,6 +265,13 @@ public class LinkedList {
 	list.append(1);
 	list.append(1);
 	list.append(3);
+	list.append(6);
+	list.append(7);
+	list.append(8);
+	list.append(9);
+	list.append(10);
+	list.append(11);
+	list.append(12);
 	remove_duplicates(list);
 	list.printList();
 	Node sortedList = new Node(2);
@@ -222,7 +285,12 @@ public class LinkedList {
 	//remove_duplicates(sortedList);
 	remove_sorted_duplicates(sortedList);
 	sortedList.printList();
-//	Node reversedList = reverse(list);
+	int secondToLast = getKthfromLastNode(list, 2);
+	System.out.println(secondToLast);
+	int thirdToLast = printKthToLast(list, 2);
+	list.deleteMiddleNode();
+	list.printList();
+        //	Node reversedList = reverse(list);
 //	reversedList.printList();
     }
 }
