@@ -43,33 +43,25 @@ public class LinkedList {
     }
 
     public static Node partition(Node head, int n){
-        HashSet<Integer> leftNodes = new HashSet<Integer>();
-        HashSet<Integer> rightNodes = new HashSet<Integer>();
-        Node secondPtr = head;
-        Node thirdPtr = head;
+        Node left = new Node(0);
+        Node right = new Node(0);
+        Node rightHead = right;
+        Node leftHead = left;
 
         while(head != null){
             if(head.data < n){
-               leftNodes.add(head.data);
+                left.next = head;
+                left = left.next;
             }
             else{
-                rightNodes.add(head.data);
+                right.next = head;
+                right = right.next;
             }
             head = head.next;
         }
-
-        for(int i : leftNodes){
-            secondPtr.data = i;
-            secondPtr = secondPtr.next;
-        }
-
-        for(int i : rightNodes){
-            secondPtr.data = i;
-            secondPtr = secondPtr.next;
-        }
-
-        return thirdPtr;
-
+        right.next = null;
+        left.next = rightHead.next;
+        return leftHead.next;
         }
 
     //Find the kth to the last element in a singly linked list
