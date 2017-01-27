@@ -137,8 +137,31 @@ public class LinkedList {
         return prev;
     }
 
+    public static Node Intersection(Node a,  Node b){
+        Node headPtr = a;
+
+        //Edge case: If head node are the same object
+        if(a == b){
+            return a;
+        }
+
+        while(a != null && b != null){
+            if(a.next == b.next){
+                return a.next;
+            }
+
+            if(a.next == null){
+                a = headPtr;
+                b = b.next;
+            }
+            a = a.next;
+        }
+        return null;
+    }
+
     public static Node addLists(Node a, Node b){
         int sum = getStackSum(a) + getStackSum(b);
+        System.out.println(getStackSum(a));
         Node addedList = intToList(sum);
         return addedList;
     }
@@ -147,8 +170,6 @@ public class LinkedList {
         char[] numChars = (Integer.toString(num)).toCharArray();
         Node list = new Node(Character.getNumericValue(numChars[numChars.length-1]));
         Node head = list;
-        //System.out.println(numChars[numChars.length-1]);
-       // System.out.println(list.data);
         for(int i = numChars.length-2; i >=0; i--){
             list.next = new Node(Character.getNumericValue(numChars[i]));
             list = list.next;
@@ -170,26 +191,6 @@ public class LinkedList {
         return num;
 
     }
-
-//    public static boolean isPalindrome(Node head){
-//        Node headPtr = head;
-//        Node reversedList = reverse(head);
-//        head.printList();
-//        reversedList.printList();
-//        while(head!= null && reversedList !=null){
-//            if(head.data != reversedList.data){
-//                //System.out.println(head.data);
-//                //System.out.println(reversedList.data);
-//                break;
-//            }
-//            head = head.next;
-//            reversedList = reversedList.next;
-//        }
-//        if(head == null && reversedList == null){
-//            return true;
-//        }
-//        return false;
-//    }
 
     public static boolean isPalindrome(Node head){
         Node headPtr = head;
@@ -302,9 +303,12 @@ public class LinkedList {
             while(currentObject != null){
                 if(currentObject.data == data){
                     previous.next = currentObject.next;
+                    currentObject = previous.next;
                 }
-                previous = currentObject;
-                currentObject = currentObject.next;
+                else {
+                    previous = currentObject;
+                    currentObject = currentObject.next;
+                }
             }
             return previous;
         }
@@ -345,6 +349,10 @@ public class LinkedList {
         public int getData(){
             return this.data;
         }
+
+        public void setNext(Node next){
+            this.next = next;
+        }
     }
 
     public static void main(String[] args) {
@@ -356,8 +364,6 @@ public class LinkedList {
 	list.append(3);
 	list.append(4);
 	list.append(5);
-	list.insert(9999, 3);
-	list.delete(9999);
 	list.append(5);
 	list.append(7);
 	list.append(1);
@@ -369,50 +375,10 @@ public class LinkedList {
 	list.append(10);
 	list.append(11);
 	list.append(12);
-//	remove_duplicates(list);
-//	list.printList();
-	Node sortedList = new Node(2);
-    sortedList.append(2);
-	sortedList.append(3);
-	sortedList.append(3);
-	sortedList.append(4);
-	sortedList.append(4);
-	sortedList.append(5);
-	sortedList.append(5);
-	Node palindromeList = new Node(1);
-	palindromeList.append(2);
-	palindromeList.append(3);
-	palindromeList.append(4);
-	palindromeList.append(5);
-	palindromeList.append(5);
-	palindromeList.append(4);
-	palindromeList.append(3);
-	palindromeList.append(2);
-	palindromeList.append(1);
-	//palindromeList.printList();
-	boolean checkPalindrome = isPalindrome(list);
-	//System.out.println(checkPalindrome);
-	Node listOne = new Node(7);
-	listOne.append(1);
-	listOne.append(6);
-	Node listTwo = new Node(5);
-	listTwo.append(9);
-	listTwo.append(2);
-	Node addedMergedList = addLists(listOne, listTwo);
-	addedMergedList.printList();
-
-
-	//remove_duplicates(sortedList);
-//	remove_sorted_duplicates(sortedList);
-//	sortedList.printList();
-//	int secondToLast = getKthfromLastNode(list, 2);
-//	System.out.println(secondToLast);
-//	int thirdToLast = printKthToLast(list, 2);
-//	list.deleteMiddleNode();
-//	list.printList();
-	//Node partitionedList = partition(list, 7);
-	//partitionedList.printList();
-      //  Node reversedList = reverse(list);
-    // reversedList.printList();
+	Node listTwo = new Node(1);
+	Node a = list.append(5);
+	listTwo.setNext(a);
+	Node intersectingNode = Intersection(list, listTwo);
+	intersectingNode.printList();
     }
 }
