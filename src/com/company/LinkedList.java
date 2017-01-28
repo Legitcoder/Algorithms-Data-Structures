@@ -97,6 +97,19 @@ public class LinkedList {
         return index;
     }
 
+    public static Node detectLoop(Node head){
+        HashSet<Node> nodes = new HashSet<>();
+
+        while(head != null){
+            if(nodes.contains(head)){
+                return head;
+            }
+            nodes.add(head);
+            head = head.next;
+        }
+        return null;
+    }
+
 
     //Given an sorted linked list, remove the duplicates
     public static Node remove_sorted_duplicates(Node head){
