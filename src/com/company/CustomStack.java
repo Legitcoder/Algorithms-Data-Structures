@@ -7,6 +7,8 @@ public class CustomStack {
 
     private int top = 0;
 
+    private int minElement;
+
     private int stackSize;
 
     public CustomStack(int stackSize){
@@ -23,12 +25,31 @@ public class CustomStack {
     }
 
     public void push(int num){
+        if(empty()){
+            minElement = num;
+        }
         if(top < stackSize){
             stackArray[top] = num;
             top++;
         }
         else{
             System.out.println("CustomStack Overflow");
+        }
+        if(num < minElement){
+            minElement = num;
+        }
+    }
+
+    public int min(){
+        return this.minElement;
+    }
+
+    public boolean empty(){
+        if(top == 0){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 
@@ -44,6 +65,7 @@ public class CustomStack {
         stack.push(1);
         stack.push(2);
         stack.push(3);
+        stack.push(-9999);
         System.out.println(stack.peek());
         stack.pop();
         System.out.println(stack.peek());
@@ -51,6 +73,9 @@ public class CustomStack {
         System.out.println(stack.peek());
         stack.pop();
         System.out.println(stack.peek());
+        System.out.println(stack.min());
+        stack.pop();
+        System.out.println(stack.min());
     }
 }
 
