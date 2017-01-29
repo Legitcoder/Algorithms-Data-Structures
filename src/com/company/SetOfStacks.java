@@ -3,8 +3,6 @@ package com.company;
 import java.util.*;
 
 //Cracking the Coding Interview Question 3.3
-//Unfinished
-//Have to redo
 public class SetOfStacks {
     private ArrayList<Stack<Integer>> stacks = new ArrayList<>();
     private int capacity;
@@ -42,7 +40,7 @@ public class SetOfStacks {
             int v = stacks.get(pile-1).pop();
             if(stacks.get(pile-1).empty()){
                 stacks.remove(pile-1);
-                //currentPile--;
+                currentPile--;
             }
             return v;
         }
@@ -70,13 +68,14 @@ public class SetOfStacks {
         stacks.push(5);
         stacks.push(6);
         stacks.push(8);
-        System.out.print(stacks.peek());
+        System.out.println(stacks.peek());
+        stacks.popAt(2);
+        System.out.println(stacks.peek());
         stacks.popAt(2);
         stacks.popAt(2);
         stacks.popAt(2);
+        System.out.println(stacks.peek());
         stacks.popAt(2);
-        stacks.popAt(2);
-        stacks.popAt(2);
-        System.out.print(stacks.peek());
+        System.out.println(stacks.peek());
     }
 }
