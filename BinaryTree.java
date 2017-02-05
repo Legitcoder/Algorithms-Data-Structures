@@ -1,9 +1,5 @@
 package com.company;
 
-import java.util.*;
-import java.util.LinkedList;
-
-
 public class BinaryTree {
 
     public static void main(String[] args){
