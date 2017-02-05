@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.*;
 
-public class LinkedList {
+public class CustomLinkedList {
 
     public static Node recursiveReverse(Node node){
         if(node.next == null){
