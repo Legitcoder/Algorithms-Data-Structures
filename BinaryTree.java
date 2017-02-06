@@ -34,6 +34,10 @@ public class BinaryTree {
         System.out.println("Pre Order Traversal");
         preOrderTraveral(eight);
 
+        int[] arr = {1,2,3,4,5,6,7,8,9};
+        System.out.println();
+        //printTree(buildMinimalTree(arr,0,arr.length-1));
+
 
     }
 
@@ -60,6 +64,30 @@ public class BinaryTree {
             preOrderTraveral(node.getRightChild());
         }
     }
+
+    public static Node<Integer> buildMinimalTree(int[] nums, int start, int end){
+        if(start>end) return null;
+        int mid = (start+end)/2;
+        Node<Integer> root = new Node<Integer>(nums[mid]);
+        root.setLeftChild(buildMinimalTree(nums, start, mid-1));
+        root.setRightChild(buildMinimalTree(nums,mid+1, end));
+        return root;
+    }
+
+//    public static void printTree(Node<Integer> root){
+//        System.out.println(root.getData());
+//        printChildren(root.getLeftChild(), root.getRightChild());
+//    }
+//
+//
+//    public static void printChildren(Node left, Node right){
+//        if(left != null) System.out.print(left.getData());
+//        System.out.print("   ");
+//        if(right !=null) System.out.print(right.getData());
+//        System.out.println();
+//        if(right != null && left != null) printChildren(left.getLeftChild(), left.getRightChild());
+//        if(right != null && left != null) printChildren(right.getLeftChild(), right.getRightChild());
+//    }
 
 
     public static void visit(Node node) {
@@ -94,6 +122,7 @@ public class BinaryTree {
         public void setLeftChild(Node<T> leftChild){
             this.leftChild = leftChild;
         }
+
 
     }
 

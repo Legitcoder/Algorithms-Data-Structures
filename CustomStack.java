@@ -25,7 +25,7 @@ public class CustomStack {
     }
 
     public void push(int num){
-        if(empty()){
+        if(this.empty()){
             minElement = num;
         }
         if(top < stackSize){
@@ -41,7 +41,13 @@ public class CustomStack {
     }
 
     public int min(){
-        return this.minElement;
+        if(this.empty()){
+            System.out.println("Empty Stack");
+            return -1;
+        }
+        else {
+            return this.minElement;
+        }
     }
 
     public boolean empty(){
