@@ -1,4 +1,5 @@
 package com.company;
+import java.util.*;
 
 public class BinaryTree {
 
@@ -21,23 +22,20 @@ public class BinaryTree {
         six.setRightChild(seven);
         ten.setRightChild(fourteen);
         fourteen.setLeftChild(thirteen);
+//
+//        System.out.println("In Order Traversal");
+//        inOrderTraversal(eight);
+//        System.out.println();
+//
+//
+//        System.out.println("Post Order Traversal");
+//        postOrderTraveral(eight);
+//        System.out.println();
+//
+//        System.out.println("Pre Order Traversal");
+//        preOrderTraveral(eight);
 
-        System.out.println("In Order Traversal");
-        inOrderTraversal(eight);
-        System.out.println();
-
-
-        System.out.println("Post Order Traversal");
-        postOrderTraveral(eight);
-        System.out.println();
-
-        System.out.println("Pre Order Traversal");
-        preOrderTraveral(eight);
-
-        int[] arr = {1,2,3,4,5,6,7,8,9};
-        System.out.println();
-        //printTree(buildMinimalTree(arr,0,arr.length-1));
-
+        System.out.println(leastCommonAncestor(eight, fourteen, thirteen).getData());
 
     }
 
@@ -65,6 +63,20 @@ public class BinaryTree {
         }
     }
 
+    public static Node<Integer> leastCommonAncestor(Node<Integer> root, Node<Integer> a, Node<Integer> b){
+        if(root == null) return null;
+        if(root ==  a || root == b) return root;
+        Node<Integer> rightLCA = leastCommonAncestor(root.getRightChild(), a, b);
+        Node<Integer> leftLCA = leastCommonAncestor(root.getLeftChild(), a, b);
+        if(rightLCA != null && leftLCA != null) return root;
+        if(rightLCA !=null) return rightLCA;
+        return leftLCA;
+    }
+
+//    public static boolean validateBST(Node<Integer> root){
+//
+//    }
+
     public static Node<Integer> buildMinimalTree(int[] nums, int start, int end){
         if(start>end) return null;
         int mid = (start+end)/2;
@@ -74,20 +86,6 @@ public class BinaryTree {
         return root;
     }
 
-//    public static void printTree(Node<Integer> root){
-//        System.out.println(root.getData());
-//        printChildren(root.getLeftChild(), root.getRightChild());
-//    }
-//
-//
-//    public static void printChildren(Node left, Node right){
-//        if(left != null) System.out.print(left.getData());
-//        System.out.print("   ");
-//        if(right !=null) System.out.print(right.getData());
-//        System.out.println();
-//        if(right != null && left != null) printChildren(left.getLeftChild(), left.getRightChild());
-//        if(right != null && left != null) printChildren(right.getLeftChild(), right.getRightChild());
-//    }
 
 
     public static void visit(Node node) {
@@ -123,7 +121,29 @@ public class BinaryTree {
             this.leftChild = leftChild;
         }
 
+        public int height(Node root){
+            if (root==null) return 0;
+            return 1 + Math.max(height(root.getLeftChild()),height(root.getRightChild()));
+        }
 
-    }
 
+        public void levelOrderQueue(Node root){
+            Queue q = new LinkedList();
+            int levelNodes =0;
+            if(root==null) return;
+            q.add(root);
+            while(!q.isEmpty()){
+                levelNodes = q.size();
+                while(levelNodes>0){
+                    Node n = (Node)q.remove();
+                    System.out.print(" " + n.data);
+                    if(n.getLeftChild()!=null) q.add(n.getLeftChild());
+                    if(n.getRightChild()!=null) q.add(n.getRightChild());
+                    levelNodes--;
+                }
+                System.out.println("");
+            }
+        }
+
+}
 }
