@@ -35,7 +35,14 @@ public class BinaryTree {
 //        System.out.println("Pre Order Traversal");
 //        preOrderTraveral(eight);
 
-        System.out.println(leastCommonAncestor(eight, fourteen, thirteen).getData());
+        //System.out.println(leastCommonAncestor(eight, fourteen, thirteen).getData());
+//        int[] nums = {1,2,3,4,5,6,7,8};
+//        Node<Integer> root = buildMinimalTree(nums, 0, nums.length-1);
+//        System.out.println(root.getLeftChild().getRightChild().getData());
+        ArrayList<LinkedList<Node>> bTreeList = treeList(eight);
+        for(LinkedList<Node> node : bTreeList){
+            System.out.println(node.peek().data);
+        }
 
     }
 
@@ -63,6 +70,29 @@ public class BinaryTree {
         }
     }
 
+    public static ArrayList<LinkedList<Node>> treeList(Node<Integer> root){
+        if(root == null) return null;
+        ArrayList<LinkedList<Node>> lists = new ArrayList<>();
+        return treeList(root, lists, 0 );
+    }
+
+    public static ArrayList<LinkedList<Node>> treeList(Node<Integer> root, ArrayList<LinkedList<Node>> lists, int level){
+        if(root == null) return lists;
+        LinkedList<Node> list = null;
+        if(lists.size() == level){
+            list = new LinkedList<Node>();
+            list.add(root);
+            lists.add(list);
+        }
+        else{
+            list = lists.get(level);
+            list.add(root);
+        }
+        treeList(root.getLeftChild(), lists, level+1);
+        treeList(root.getRightChild(), lists, level+1);
+        return lists;
+    }
+
     public static Node<Integer> leastCommonAncestor(Node<Integer> root, Node<Integer> a, Node<Integer> b){
         if(root == null) return null;
         if(root ==  a || root == b) return root;
@@ -85,6 +115,7 @@ public class BinaryTree {
         root.setRightChild(buildMinimalTree(nums,mid+1, end));
         return root;
     }
+
 
 
 

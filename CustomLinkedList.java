@@ -9,6 +9,7 @@ public class CustomLinkedList {
             return node;
         }
         Node reversedList = recursiveReverse(node.next);
+        reversedList.printList();
         //The last node points back to the previous node in the stack
         node.next.next = node;
         //Nullifies the forward pointers in the stack
@@ -152,11 +153,6 @@ public class CustomLinkedList {
 
     public static Node Intersection(Node a,  Node b){
         Node headPtr = a;
-
-        //Edge case: If head node are the same object
-        if(a == b){
-            return a;
-        }
 
         while(a != null && b != null){
             if(a.next == b.next){
@@ -373,25 +369,25 @@ public class CustomLinkedList {
         Node list = new Node(1);
         list.append(2);
         list.append(1);
-        list.append(9000);
+        //list.append(9000);
         list.append(3);
         list.append(4);
         list.append(5);
-        list.append(5);
-        list.append(7);
-        list.append(1);
-        list.append(3);
-        list.append(6);
-        list.append(6);
-        list.append(8);
-        list.append(9);
-        list.append(10);
-        list.append(11);
-        list.append(12);
-        Node listTwo = new Node(1);
-        Node a = list.append(5);
-        listTwo.setNext(a);
-        Node intersectingNode = Intersection(list, listTwo);
-        intersectingNode.printList();
+//        list.append(5);
+//        list.append(7);
+//        list.append(1);
+//        list.append(3);
+//        list.append(6);
+//        list.append(6);
+//        list.append(8);
+//        list.append(9);
+//        list.append(10);
+//        list.append(11);
+//        list.append(12);
+//        Node listTwo = new Node(1);
+//        Node a = list.append(5);
+//        listTwo.setNext(a);
+//        Node intersectingNode = Intersection(list, listTwo);
+//        intersectingNode.printList();
     }
 }
